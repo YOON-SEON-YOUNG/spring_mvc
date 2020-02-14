@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.mappers.replyMapper">
+
+
+<!-- 댓글 작성 -->
+	<insert id="create">
+		insert into tbl_reply
+			(rno, bno, reply_text, replyer)
+		values 
+			(seq_reply_rno.nextval, #{bno}, #{reply_text}, #{replyer})
+	</insert>	
+
+
+<!-- 댓글 목록 -->
+	<select id="list" resultType="ReplyVo">
+		select * from tbl_reply
+		where bno = #{bno}
+		order by rno desc
+	</select>
+	
+	
+<!-- 댓글 수정 -->
+	<update id="update">
+		update tbl_reply set
+			reply_text = #{reply_text},
+			update_date = sysdate
+		where rno = #{rno}
+	</update>
+
+
+<!-- 댓글 삭제 (해당 댓글 하나만) -->
+	<delete id="delete">
+		delete from tbl_reply
+		where rno = #{rno}
+	</delete>
+
+<!-- 댓글 삭제 (해당 게시글 댓글) -->
+	<delete id="deleteReplyByBno">
+		delete from tbl_reply
+		where bno = #{bno}
+	</delete>
+	
+	
+</mapper>

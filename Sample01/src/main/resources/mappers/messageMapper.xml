@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.mappers.messageMapper">
+
+
+	<!-- 쪽지 쓰기 -->
+	<insert id="insert">
+		insert into tbl_message
+			(message_id, target_id, sender, message_text)
+		values 
+			(seq_message_id.nextval, #{target_id}, #{sender}, #{message_text})
+	</insert>
+	
+	
+	<!-- 쪽지 읽기 -->
+	<select id="select" resultType="MessageVo">
+		select * from tbl_message
+		where message_id = #{message_id}
+	</select>
+	
+	
+	<!-- 쪽지 열람 시각 수정  -->
+	<update id="update">
+		update tbl_message set
+			open_date = sysdate
+		where message_id = #{message_id}
+	</update>
+	
+	
+	<!-- 쪽지 삭제  -->
+	<delete id="delete">
+		delete from tbl_message
+		where message_id = #{message_id}
+	</delete>
+	
+	
+</mapper>
